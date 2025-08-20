@@ -1,146 +1,57 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AI Chat App</title>
-  <style>
-    body {
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f0f2f5;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      margin: 0;
-    }
-
-    #chat-container {
-      width: 100%;
-      max-width: 500px;
-      height: 90vh;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    #messages {
-      flex: 1;
-      padding: 15px;
-      overflow-y: auto;
-    }
-
-    .message {
-      margin: 8px 0;
-      padding: 10px 14px;
-      border-radius: 10px;
-      max-width: 75%;
-      line-height: 1.4;
-    }
-
-    .user {
-      background: #dcf8c6;
-      align-self: flex-end;
-      border-bottom-right-radius: 2px;
-    }
-
-    .bot {
-      background: #eaeaea;
-      align-self: flex-start;
-      border-bottom-left-radius: 2px;
-    }
-
-    .typing {
-      font-style: italic;
-      color: #777;
-      background: none !important;
-      padding: 4px;
-    }
-
-    #input-area {
-      display: flex;
-      border-top: 1px solid #ddd;
-      padding: 10px;
-      background: #fafafa;
-    }
-
-    #userInput {
-      flex: 1;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 20px;
-      outline: none;
-    }
-
-    button {
-      margin-left: 10px;
-      padding: 10px 16px;
-      border: none;
-      border-radius: 20px;
-      background: #25d366;
-      color: white;
-      font-weight: bold;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    button:hover {
-      background: #20b955;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ARTYA AI</title>
+  <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-  <div id="chat-container">
-    <div id="messages"></div>
-    <div id="input-area">
-      <input id="userInput" type="text" placeholder="اكتب رسالتك..." />
-      <button onclick="sendMessage()">إرسال</button>
-    </div>
+  <div class="app">
+    <header class="topbar">
+      <div class="logo">🎨</div>
+      <div class="title">ARTYA AI</div>
+    </header>
+
+    <nav class="tabs">
+      <button class="tab active" data-tab="chat">الدردشة</button>
+      <button class="tab" data-tab="video">نص → فيديو</button>
+      <span class="spacer"></span>
+      <span id="video-countdown" class="countdown hidden"></span>
+    </nav>
+
+    <main id="views">
+      <!-- View: Chat -->
+      <section id="view-chat" class="view active">
+        <div id="messages" class="messages"></div>
+        <form id="form" class="input-bar">
+          <input id="userInput" type="text" placeholder="اكتب رسالتك..." autocomplete="off" />
+          <button type="submit">إرسال</button>
+        </form>
+      </section>
+
+      <!-- View: Video -->
+      <section id="view-video" class="view">
+        <div id="video-locked" class="card info hidden"></div>
+
+        <form id="video-form" class="card form hidden">
+          <label class="lbl">وصف الفيديو</label>
+          <textarea id="video-prompt" rows="4" placeholder="صف الفيديو المطلوب..."></textarea>
+          <div class="row">
+            <button type="submit">إنشاء فيديو</button>
+          </div>
+        </form>
+
+        <div id="video-result" class="card hidden">
+          <video id="video-player" controls playsinline></video>
+        </div>
+      </section>
+    </main>
   </div>
 
   <script>
-    async function sendMessage() {
-      const input = document.getElementById("userInput");
-      const message = input.value.trim();
-      if (!message) return;
-
-      addMessage(message, "user");
-      input.value = "";
-
-      // أظهر أن البوت يكتب
-      const typingEl = addMessage("يكتب...", "typing");
-
-      try {
-        const res = await fetch("/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message })
-        });
-
-        const data = await res.json();
-
-        // احذف "يكتب..." وأضف رد البوت
-        typingEl.remove();
-        addMessage(data.reply, "bot");
-
-      } catch (err) {
-        typingEl.remove();
-        addMessage("⚠️ حدث خطأ أثناء الاتصال بالخادم", "bot");
-      }
-    }
-
-    function addMessage(text, sender) {
-      const messagesDiv = document.getElementById("messages");
-      const msg = document.createElement("div");
-      msg.className = `message ${sender}`;
-      msg.innerText = text;
-      messagesDiv.appendChild(msg);
-      messagesDiv.scrollTop = messagesDiv.scrollHeight;
-      return msg;
-    }
+    window.__VIDEO_UNLOCK_AT__ = "2026-01-13T00:00:00Z";
   </script>
+  <script src="./script.js"></script>
 </body>
 </html>
