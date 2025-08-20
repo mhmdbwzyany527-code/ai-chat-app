@@ -9,7 +9,7 @@ const sections = document.querySelectorAll(".tab-section");
 const videoSection = document.getElementById("video-section");
 const countdown = document.getElementById("countdown");
 
-let OPENAI_API_KEY = "PUT-YOUR-API-KEY-HERE"; // 🔑 ضع مفتاحك هنا
+let OPENAI_API_KEY = "sk-proj-; // 🔑 ضع مفتاحك هنا
 let messages = [];
 
 // 🎨 تبديل التبويبات
