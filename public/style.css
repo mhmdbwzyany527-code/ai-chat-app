@@ -1,0 +1,134 @@
+/* Reset عام */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Tajawal", sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, #ffdde1, #ee9ca7);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.app {
+  width: 95%;
+  max-width: 600px;
+  height: 90vh;
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* 🔝 شريط علوي */
+.topbar {
+  background: #ff6f61;
+  color: white;
+  padding: 15px;
+  font-size: 20px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  margin-right: 10px;
+}
+
+/* منطقة الرسائل */
+.messages {
+  flex: 1;
+  padding: 15px;
+  overflow-y: auto;
+  background: #f9f9f9;
+}
+
+/* شكل الفقاعة */
+.message {
+  max-width: 75%;
+  padding: 12px 15px;
+  border-radius: 20px;
+  margin: 8px 0;
+  word-wrap: break-word;
+  font-size: 16px;
+}
+
+/* رسائل المستخدم */
+.user {
+  background: #d4f8d4;
+  color: #333;
+  align-self: flex-end;
+  border-bottom-right-radius: 5px;
+  animation: pop 0.3s ease;
+}
+
+/* ردود AI */
+.bot {
+  background: #f0f0f0;
+  color: #222;
+  align-self: flex-start;
+  border-bottom-left-radius: 5px;
+  animation: fadeIn 0.4s ease;
+}
+
+/* شريط الكتابة */
+.input-bar {
+  display: flex;
+  padding: 10px;
+  border-top: 2px solid #eee;
+  background: #fff;
+}
+
+#userInput {
+  flex: 1;
+  padding: 12px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+button {
+  background: #ff6f61;
+  border: none;
+  color: white;
+  font-weight: bold;
+  padding: 10px 20px;
+  margin-left: 10px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #ff3b2e;
+}
+
+/* أنيميشن الفقاعات */
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
