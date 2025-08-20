@@ -1,57 +1,23 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ARTYA AI</title>
-  <link rel="stylesheet" href="./style.css" />
+  <meta charset="UTF-8">
+  <title>AI Chat App</title>
+  <style>
+    body { font-family: Arial; background:#f4f4f4; text-align:center; }
+    #chat-box { width: 90%; max-width:500px; margin:20px auto; padding:10px; border:1px solid #ccc; background:#fff; height:400px; overflow-y:auto; }
+    .message { margin:5px; padding:8px; border-radius:5px; }
+    .user { background:#d1ffd1; text-align:right; }
+    .bot { background:#e1e1ff; text-align:left; }
+  </style>
 </head>
 <body>
-  <div class="app">
-    <header class="topbar">
-      <div class="logo">🎨</div>
-      <div class="title">ARTYA AI</div>
-    </header>
-
-    <nav class="tabs">
-      <button class="tab active" data-tab="chat">الدردشة</button>
-      <button class="tab" data-tab="video">نص → فيديو</button>
-      <span class="spacer"></span>
-      <span id="video-countdown" class="countdown hidden"></span>
-    </nav>
-
-    <main id="views">
-      <!-- View: Chat -->
-      <section id="view-chat" class="view active">
-        <div id="messages" class="messages"></div>
-        <form id="form" class="input-bar">
-          <input id="userInput" type="text" placeholder="اكتب رسالتك..." autocomplete="off" />
-          <button type="submit">إرسال</button>
-        </form>
-      </section>
-
-      <!-- View: Video -->
-      <section id="view-video" class="view">
-        <div id="video-locked" class="card info hidden"></div>
-
-        <form id="video-form" class="card form hidden">
-          <label class="lbl">وصف الفيديو</label>
-          <textarea id="video-prompt" rows="4" placeholder="صف الفيديو المطلوب..."></textarea>
-          <div class="row">
-            <button type="submit">إنشاء فيديو</button>
-          </div>
-        </form>
-
-        <div id="video-result" class="card hidden">
-          <video id="video-player" controls playsinline></video>
-        </div>
-      </section>
-    </main>
-  </div>
-
-  <script>
-    window.__VIDEO_UNLOCK_AT__ = "2026-01-13T00:00:00Z";
-  </script>
-  <script src="./script.js"></script>
+  <h1>محادثة مع الذكاء الاصطناعي 🤖</h1>
+  <div id="chat-box"></div>
+  <form id="chat-form">
+    <input id="chat-input" type="text" placeholder="اكتب رسالتك..." style="width:70%;padding:8px;" />
+    <button type="submit">إرسال</button>
+  </form>
+  <script src="script.js"></script>
 </body>
 </html>
