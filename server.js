@@ -1,38 +1,51 @@
-import express from "express";
-import bodyParser from "body-parser";
-import fetch from "node-fetch";
+const express = require("express");
+const cors = require("cors");
+const fetch = require("node-fetch");
 
 const app = express();
-const port = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
+// 🔑 تأكد أنك حاط مفتاحك هنا في Render Environment Variables
+const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
 
-// نقطة الدردشة
+app.use(cors());
+app.use(express.json());
+
+// يخدم الملفات من مجلد public
+app.use(express.static("public"));
+
+// صفحة البداية index.html
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/public/index.html");
+});
+
+// API الدردشة
 app.post("/chat", async (req, res) => {
-  const { message } = req.body;
+  const userMessage = req.body.message;
 
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.OPENAI_API_KEY}` // حط مفتاحك في Render
+        "Authorization": `Bearer ${OPENAI_API_KEY}`
       },
       body: JSON.stringify({
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: message }]
+        model: "gpt-3.5-turbo",   // تقدر تخليها gpt-4 لو عندك
+        messages: [{ role: "user", content: userMessage }]
       })
     });
 
     const data = await response.json();
-    res.json({ reply: data.choices[0].message.content });
+    const botReply = data.choices[0].message.content;
 
+    res.json({ reply: botReply });
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ reply: "حدث خطأ في الخادم" });
+    console.error("Error:", error);
+    res.status(500).json({ error: "حدث خطأ في الخادم" });
   }
 });
 
-app.listen(port, () => {
-  console.log(`✅ السيرفر يشتغل على المنفذ ${port}`);
+app.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
 });
